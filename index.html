@@ -1,0 +1,367 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Dossier de candidature Le Wupp</title>
+<link rel="icon" href="logo.webp">
+<style>
+:root{
+  --fond:#DAEDE7; --teal:#0F3039; --encre:#22353A; --gris:#5F7379; --ard:#86999D;
+  --rose:#FFE3EC; --rose-bord:#E8779F; --rouge:#D8262C; --champ:#BCCDD1;
+  --blanc:#FFFFFF; --blanc-b:#CBDDD7; --bleu:#EAF1FA; --bleu-b:#C9D9EE;
+  --rosec:#FFEDF2; --rosec-b:#F3C3D2; --jaune:#FFF8E1; --jaune-b:#ECDDA6; --jaune-t:#6B5200;
+  --eau:#EDF6F3; --eau-b:#C9DED7;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--fond);color:var(--encre);font-family:Arial,Helvetica,sans-serif;font-size:15px;line-height:1.55}
+main{max-width:640px;margin:0 auto;padding:28px 14px 40px;display:flex;flex-direction:column;gap:14px}
+.carte{background:var(--blanc);border:1px solid var(--blanc-b);border-radius:14px;padding:26px 28px}
+.carte.bleu{background:var(--bleu);border-color:var(--bleu-b)}
+.carte.rose{background:var(--rosec);border-color:var(--rosec-b)}
+.carte.jaune{background:var(--jaune);border-color:var(--jaune-b)}
+.carte.rouge{border-color:var(--rouge);text-align:center}
+.tete{text-align:center}
+.tete img{width:84px;height:84px;display:block;margin:0 auto}
+.tete .sur{font-size:11px;font-weight:bold;letter-spacing:2px;color:var(--ard);margin-top:14px}
+.tete h1{font-size:24px;line-height:30px;color:var(--teal);margin:4px 0 0}
+.tete .adr{font-size:13px;color:var(--gris);margin-top:4px}
+hr{border:0;border-top:1px solid #DCE8E4;margin:22px 0}
+p{margin:0 0 12px;text-align:justify}
+p:last-child{margin-bottom:0}
+h2{display:flex;align-items:center;gap:12px;font-size:17px;line-height:22px;color:var(--teal);margin:0 0 16px}
+.carte.rouge h2{justify-content:center}
+.pic{flex:none;width:36px;height:36px;border:1px solid var(--rose-bord);border-radius:10px;background:var(--rose);display:flex;align-items:center;justify-content:center;font-size:18px;line-height:1}
+.carte.rose .pic{background:#FFFFFF}
+.pic.petit{width:26px;height:26px;border-radius:7px;font-size:14px;background:var(--rose)}
+.note{border:1px solid var(--eau-b);background:var(--eau);border-radius:10px;padding:16px 18px;font-size:14px}
+.note.jaune{border-color:var(--jaune-b);background:var(--jaune)}
+.note + .note{margin-top:10px}
+.note .ligne{display:flex;gap:12px;align-items:center;margin-bottom:10px}
+.note b.t{display:block;color:var(--jaune-t);margin-bottom:6px}
+ul.puces{list-style:none;margin:0;padding:0}
+ul.puces li{position:relative;padding:0 0 6px 18px;text-align:justify}
+ul.puces li::before{content:"";position:absolute;left:0;top:.55em;width:8px;height:8px;border-radius:50%;background:var(--rose-bord)}
+ul.puces li:last-child{padding-bottom:0}
+.sous{font-size:14px;font-weight:bold;color:var(--teal);margin:14px 0 8px}
+.sous:first-child{margin-top:0}
+.champ{display:grid;grid-template-columns:42% 1fr;gap:4px 14px;align-items:center;margin-bottom:10px}
+.champ:last-child{margin-bottom:0}
+.champ label,.champ .lib{font-size:13px;line-height:17px;font-weight:bold}
+.champ small{display:block;font-size:11px;line-height:15px;font-weight:normal;color:var(--gris)}
+input[type=text],input[type=email],input[type=tel],input[type=date],select{width:100%;min-width:0;height:40px;border:1px solid var(--champ);border-radius:8px;background:#FFFFFF;color:var(--encre);font:16px Arial,Helvetica,sans-serif;padding:0 10px}
+input:focus,select:focus,button:focus-visible,.tuile:focus-within{outline:2px solid var(--teal);outline-offset:2px}
+.duo{display:grid;grid-template-columns:110px 1fr;gap:8px}
+.erreur input,.erreur select{border-color:var(--rouge);background:#FFF5F5}
+.msg{grid-column:2;font-size:12px;color:var(--rouge);display:none}
+.erreur .msg{display:block}
+.tuiles{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.tuiles + .tuiles{margin-top:12px}
+.tuile{position:relative;display:block;background:#FFFFFF;border:1px solid var(--rosec-b);border-radius:10px;padding:14px;cursor:pointer}
+.carte.jaune .tuile{border-color:var(--jaune-b)}
+.tuile input{position:absolute;opacity:0;width:1px;height:1px}
+.tuile .case{position:absolute;top:14px;right:14px;width:24px;height:24px;border:2px solid var(--teal);border-radius:6px;background:#FFFFFF;display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:16px;color:#FFFFFF}
+.tuile.coche{border-color:var(--teal);box-shadow:0 0 0 1px var(--teal)}
+.tuile.coche .case{background:var(--teal)}
+.tuile .nom{font-size:13px;color:var(--gris);padding-right:34px}
+.tuile .prix{font-size:20px;line-height:26px;font-weight:bold;color:var(--teal);margin-top:6px}
+.tuile .par{font-size:12px;color:var(--gris)}
+.tuile .titre{font-size:14px;font-weight:bold;color:var(--teal);padding-right:34px}
+.tuile .titre.bas{margin-top:8px;padding-right:0}
+.tuile .txt{font-size:13px;line-height:20px;margin-top:6px;text-align:justify}
+.groupe.erreur .tuile{border-color:var(--rouge)}
+.groupe .msg{display:none;font-size:12px;color:var(--rouge);margin-top:6px}
+.groupe.erreur .msg{display:block}
+.cocher{display:flex;align-items:center;gap:10px;font-size:13px;font-weight:bold;cursor:pointer}
+.cocher input{width:22px;height:22px;accent-color:var(--teal);margin:0;flex:none}
+[hidden]{display:none!important}
+.bouton{display:inline-block;border:0;border-radius:10px;background:var(--teal);color:#FFFFFF;font:bold 16px Arial,Helvetica,sans-serif;padding:14px 26px;cursor:pointer;text-decoration:none}
+.bouton.clair{background:#FFFFFF;color:var(--teal);border:1px solid var(--teal);font-size:14px;padding:10px 16px}
+.rangee{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:12px}
+.centre{text-align:center;font-weight:bold}
+.alerte{color:var(--rouge);font-weight:bold;text-align:center;margin-top:12px}
+textarea{width:100%;min-height:220px;border:1px solid var(--champ);border-radius:8px;padding:10px;font:13px/1.5 Consolas,Menlo,monospace;color:var(--encre);background:#FFFFFF;margin-top:12px;text-align:left}
+.pied{font-size:12px;color:var(--gris);text-align:center;padding:6px 10px 0}
+.pied p{text-align:center;margin-bottom:6px}
+@media (max-width:560px){
+  .carte{padding:20px 18px}
+  .champ{grid-template-columns:1fr;gap:4px}
+  .msg{grid-column:1}
+  .tete h1{font-size:22px;line-height:28px}
+}
+</style>
+</head>
+<body>
+<main>
+
+<section class="carte">
+  <div class="tete">
+    <img src="logo.webp" alt="Le Wupp" width="84" height="84">
+    <div class="sur">IMMEUBLE LE WUPP</div>
+    <h1>Votre dossier de candidature</h1>
+    <div class="adr">4 rue de Wuppertal, 42100 Saint-Étienne</div>
+  </div>
+  <hr>
+  <p>Merci de l'intérêt que vous portez à l'immeuble Le Wupp. Nous serons heureux d'étudier votre candidature.</p>
+  <p>Remplissez les fiches ci-dessous. En bas de la page, votre mail se prépare tout seul, vous n'avez plus qu'à y joindre vos pièces et à l'envoyer.</p>
+  <div class="note" style="margin-top:18px">
+    <div class="ligne"><span class="pic" aria-hidden="true">⏱️</span><span><strong>Réponse sous 24 heures</strong>, hors week-end et jours fériés, dès lors que le dossier est complet.</span></div>
+    <p>Un dossier auquel il manque des informations ou des pièces ne peut pas être étudié. Nous serions alors amenés à revenir vers vous, ce qui retarderait d'autant votre candidature.</p>
+  </div>
+  <div class="note jaune">
+    <b class="t">Avant de commencer</b>
+    <ul class="puces">
+      <li>Les logements sont loués à une seule personne, le bail étant établi au nom d'un seul titulaire. Les colocations ne sont pas acceptées.</li>
+      <li>Le bail dure 9 mois pour un étudiant (reconductible tous les 9 mois) et 12 mois dans les autres cas (reconduction tacite).</li>
+      <li>Quel que soit le bail, la dédite est d'1 mois.</li>
+    </ul>
+  </div>
+</section>
+
+<form id="dossier" novalidate>
+
+<section class="carte bleu">
+  <h2><span class="pic" aria-hidden="true">📝</span>Vos informations</h2>
+  <div class="champ" data-req><label for="nom">NOM<small>(en majuscules)</small></label><input type="text" id="nom" autocomplete="family-name" style="text-transform:uppercase"><span class="msg">À compléter</span></div>
+  <div class="champ" data-req><label for="prenom">Prénom(s)</label><input type="text" id="prenom" autocomplete="given-name"><span class="msg">À compléter</span></div>
+  <div class="champ" data-req><label for="naissance">Date de naissance</label><input type="date" id="naissance" autocomplete="bday" min="1930-01-01"><span class="msg">Date à indiquer</span></div>
+  <div class="champ" data-req><label for="ville_n">Ville de naissance<small>(ville et département)</small></label><input type="text" id="ville_n"><span class="msg">À compléter</span></div>
+  <div class="champ" data-req><label for="pays_n">Pays de naissance</label><input type="text" id="pays_n" autocomplete="country-name"><span class="msg">À compléter</span></div>
+  <div class="champ"><span class="lib">Titre de séjour en cours de validité<small>(si vous en avez un)</small></span><label class="cocher"><input type="checkbox" id="sejour"> J'en ai un</label></div>
+  <div class="champ" data-req><label for="adresse">Adresse actuelle<small>(numéro et rue)</small></label><input type="text" id="adresse" autocomplete="street-address"><span class="msg">À compléter</span></div>
+  <div class="champ" data-req><span class="lib">Code postal et ville</span><div class="duo"><input type="text" id="cp" inputmode="numeric" autocomplete="postal-code" aria-label="Code postal"><input type="text" id="ville" autocomplete="address-level2" aria-label="Ville"></div><span class="msg">Code postal et ville à compléter</span></div>
+  <div class="champ" data-req><label for="mail">Adresse mail</label><input type="email" id="mail" autocomplete="email"><span class="msg">Adresse mail à vérifier</span></div>
+  <div class="champ" data-req><label for="tel">Téléphone portable<small>(chiffres à la suite)</small></label><input type="tel" id="tel" autocomplete="tel" inputmode="tel"><span class="msg">Numéro à vérifier</span></div>
+  <div class="champ" data-req><label for="situation">Votre situation</label><select id="situation"><option value="">Choisissez</option><option>étudiant</option><option>alternant</option><option>salarié</option><option>autre</option></select><span class="msg">À choisir</span></div>
+  <div class="champ" id="l_situation_autre" data-req hidden><label for="situation_autre">Précisez votre situation</label><input type="text" id="situation_autre"><span class="msg">À compléter</span></div>
+  <div class="champ" data-req><label for="bourse">Bourse de l'enseignement supérieur 2026-2027</label><select id="bourse"><option value="">Choisissez</option><option>non</option><option>oui</option><option>demande en cours</option></select><span class="msg">À choisir</span></div>
+  <div class="champ" id="l_bourse_nom" data-req hidden><label for="bourse_nom">Laquelle ?</label><input type="text" id="bourse_nom"><span class="msg">À compléter</span></div>
+</section>
+
+<section class="carte rose">
+  <h2><span class="pic" aria-hidden="true">🏠</span>Votre logement</h2>
+  <p>Cochez l'appartement souhaité, puis chaque option que vous retenez.</p>
+  <div class="groupe" id="g_appt" style="margin-top:16px">
+    <div class="tuiles">
+      <label class="tuile"><input type="radio" name="appt" value="L'Essentiel 425 €"><span class="case" aria-hidden="true">✓</span><div class="nom">L'Essentiel</div><div class="prix">425 €</div><div class="par">par mois</div></label>
+      <label class="tuile"><input type="radio" name="appt" value="Le Supérieur 495 €"><span class="case" aria-hidden="true">✓</span><div class="nom">Le Supérieur</div><div class="prix">495 €</div><div class="par">par mois</div></label>
+    </div>
+    <div class="msg">Choisissez un appartement</div>
+  </div>
+  <div class="tuiles">
+    <label class="tuile"><input type="checkbox" id="parking"><span class="case" aria-hidden="true">✓</span><span class="pic petit" aria-hidden="true">🅿️</span><div class="titre bas">Option parking privé</div><div class="par">25 € par mois</div></label>
+    <label class="tuile"><input type="checkbox" id="laverie"><span class="case" aria-hidden="true">✓</span><span class="pic petit" aria-hidden="true">🧺</span><div class="titre bas">Option laverie</div><div class="par">15 € par mois</div></label>
+  </div>
+</section>
+
+<section class="carte jaune">
+  <h2><span class="pic" aria-hidden="true">🤝</span>Votre garantie</h2>
+  <label class="tuile"><input type="checkbox" id="visale"><span class="case" aria-hidden="true">✓</span><div class="titre">Garantie Visale</div><div class="txt">Cochez la case si vous en bénéficiez, et joignez votre visa certifié, sans autre pièce à fournir pour cette partie.</div></label>
+  <label class="tuile" style="margin-top:12px"><input type="checkbox" id="garant"><span class="case" aria-hidden="true">✓</span><div class="titre">Vous avez un garant</div><div class="txt">Cochez la case, puis complétez sa fiche.</div></label>
+  <div id="fiche_garant" hidden style="margin-top:16px">
+    <div class="champ" data-req><label for="g_nom">NOM<small>(en majuscules)</small></label><input type="text" id="g_nom" style="text-transform:uppercase"><span class="msg">À compléter</span></div>
+    <div class="champ" data-req><label for="g_prenom">Prénom(s)</label><input type="text" id="g_prenom"><span class="msg">À compléter</span></div>
+    <div class="champ" data-req><label for="g_naissance">Date de naissance</label><input type="date" id="g_naissance" min="1920-01-01"><span class="msg">Date à indiquer</span></div>
+    <div class="champ" data-req><label for="g_ville_n">Ville de naissance<small>(ville et département)</small></label><input type="text" id="g_ville_n"><span class="msg">À compléter</span></div>
+    <div class="champ" data-req><label for="g_pays_n">Pays de naissance</label><input type="text" id="g_pays_n"><span class="msg">À compléter</span></div>
+    <div class="champ"><span class="lib">Titre de séjour en cours de validité<small>(s'il en a un)</small></span><label class="cocher"><input type="checkbox" id="g_sejour"> Il en a un</label></div>
+    <div class="champ" data-req><label for="g_adresse">Adresse postale<small>(numéro et rue)</small></label><input type="text" id="g_adresse"><span class="msg">À compléter</span></div>
+    <div class="champ" data-req><span class="lib">Code postal et ville</span><div class="duo"><input type="text" id="g_cp" inputmode="numeric" aria-label="Code postal du garant"><input type="text" id="g_ville" aria-label="Ville du garant"></div><span class="msg">Code postal et ville à compléter</span></div>
+    <div class="champ" data-req><label for="g_mail">Adresse mail</label><input type="email" id="g_mail"><span class="msg">Adresse mail à vérifier</span></div>
+    <div class="champ" data-req><label for="g_tel">Téléphone portable<small>(chiffres à la suite)</small></label><input type="tel" id="g_tel" inputmode="tel"><span class="msg">Numéro à vérifier</span></div>
+    <div class="champ" data-req><label for="g_lien">Profession et lien avec vous</label><input type="text" id="g_lien"><span class="msg">À compléter</span></div>
+  </div>
+</section>
+
+<section class="carte">
+  <h2><span class="pic" aria-hidden="true">📎</span>Les pièces à joindre</h2>
+  <p>La liste s'adapte à vos réponses. Préparez ces pièces, vous les joindrez à votre mail.</p>
+  <div class="sous">Pour vous</div>
+  <ul class="puces" id="pieces_vous"></ul>
+  <div id="bloc_pieces_garant" hidden>
+    <div class="sous">Pour votre garant</div>
+    <ul class="puces" id="pieces_garant"></ul>
+  </div>
+  <div class="note jaune" style="margin-top:14px">
+    <b class="t">2 questions qui reviennent souvent</b>
+    <p>Si vous êtes étudiant, indiquez-nous si vous êtes boursier pour l'année 2026-2027 ou si votre demande de bourse est en cours. Il s'agit d'une nouvelle disposition légale, que la loi nous impose dans le cadre de l'établissement d'un bail meublé étudiant.</p>
+    <p>Le justificatif de domicile peut être une facture d'eau ou d'électricité, à laquelle s'ajoute la taxe foncière si vous êtes propriétaire ou votre dernière quittance si vous êtes locataire. Si vous êtes hébergé, une attestation d'hébergement la remplace, avec sur une même feuille la copie de la pièce d'identité de la personne qui vous héberge, quelques lignes de sa main indiquant qu'elle vous héberge, la date et sa signature.</p>
+  </div>
+</section>
+
+<section class="carte bleu rouge" id="envoi">
+  <h2><span class="pic" aria-hidden="true">📬</span>Envoyez le tout en un seul mail</h2>
+  <p class="centre">Appuyez sur le bouton. Votre mail s'ouvre, déjà rempli avec votre fiche. Joignez-y toutes vos pièces, puis envoyez-le.</p>
+  <div class="rangee"><button type="submit" class="bouton" id="b_preparer">Préparer mon mail</button></div>
+  <div class="alerte" id="alerte" role="alert" hidden></div>
+  <div id="apres" hidden>
+    <hr>
+    <p class="centre">Votre messagerie ne s'est pas ouverte ?</p>
+    <div class="rangee">
+      <a class="bouton clair" id="b_gmail" target="_blank" rel="noopener">Ouvrir dans Gmail</a>
+      <a class="bouton clair" id="b_outlook" target="_blank" rel="noopener">Ouvrir dans Outlook</a>
+      <button type="button" class="bouton clair" id="b_copier">Copier ma fiche</button>
+    </div>
+    <p class="centre" style="margin-top:12px">Vous pouvez aussi copier votre fiche et la coller dans un mail adressé à secretariat@wupp.fr, avec vos pièces.</p>
+    <textarea id="fiche" readonly aria-label="Votre fiche"></textarea>
+  </div>
+</section>
+
+</form>
+
+<section class="carte rose">
+  <h2><span class="pic" aria-hidden="true">🗝️</span>Pour la suite</h2>
+  <p>Le bail et l'acte de caution sont signés électroniquement, le bail prenant effet le jour de son édition.</p>
+  <p>À la signature, vous réglez le dépôt de garantie d'1 mois de loyer hors options et le loyer du mois en cours au prorata, par carte bancaire au moyen de 2 liens que nous vous adressons. Les mois suivants, le loyer est prélevé le 27 du mois précédent, au moyen d'un mandat de prélèvement SEPA signé que nous vous demanderons avant l'entrée dans les lieux.</p>
+  <p>Une attestation d'assurance multirisque habitation vous sera demandée à l'entrée dans les lieux. Votre assureur aura besoin de savoir qu'il s'agit d'un appartement meublé situé 4 rue de Wuppertal à Saint-Étienne, dans un immeuble collectif, sans dépendance à assurer, la surface étant précisée sur le bail.</p>
+</section>
+
+<div class="pied">
+  <p>Vos réponses ne sont enregistrées nulle part. Elles sont seulement placées dans le mail que vous envoyez vous-même, et servent uniquement à l'étude de votre candidature.</p>
+  <p>Le Wupp (SARL LE PARC), 4 rue de Wuppertal, 42100 Saint-Étienne, secretariat@wupp.fr</p>
+</div>
+
+</main>
+<script>
+(function () {
+  var DEST = "secretariat@wupp.fr";
+  var $ = function (id) { return document.getElementById(id); };
+  var v = function (id) { return ($(id).value || "").trim(); };
+  var ouiNon = function (id) { return $(id).checked ? "oui" : "non"; };
+  function dateFr(s) { var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(s); return m ? m[3] + "/" + m[2] + "/" + m[1] : ""; }
+  function dateValide(s) { var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(s); if (!m) return false; var d = new Date(s + "T12:00:00"); return !isNaN(d) && d < new Date() && +m[1] >= 1920; }
+  function telValide(s) { var c = s.replace(/[\s.\-()]/g, ""); return /^\+?\d{9,15}$/.test(c); }
+  function mailValide(s) { return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(s); }
+
+  function tuiles() {
+    document.querySelectorAll(".tuile").forEach(function (t) { t.classList.toggle("coche", t.querySelector("input").checked); });
+  }
+  function pieces() {
+    var b = v("bourse");
+    var vous = ["Pièce d'identité en cours de validité, recto et verso (carte d'identité, passeport ou titre de séjour)",
+      "Contrat de travail, convention de stage ou certificat de scolarité",
+      "Vos 3 derniers bulletins de salaire, si vous percevez un salaire",
+      "Avis d'imposition 2026 sur les revenus 2025", "RIB à votre nom", "Justificatif de domicile de moins de 3 mois"];
+    if (b === "oui" || b === "demande en cours") vous.push("Notification d'attribution de bourse 2026-2027, conditionnelle ou définitive");
+    if ($("visale").checked) vous.push("Votre visa Visale certifié");
+    var garant = ["Pièce d'identité en cours de validité, recto et verso (carte d'identité, passeport ou titre de séjour)",
+      "Ses 3 derniers bulletins de salaire, ou son dernier avis d'imposition s'il est indépendant, ou son titre de pension s'il est retraité",
+      "Avis d'imposition 2026 sur les revenus 2025", "Justificatif de domicile de moins de 3 mois", "RIB à son nom"];
+    function liste(ul, items) { ul.textContent = ""; items.forEach(function (i) { var li = document.createElement("li"); li.textContent = i; ul.appendChild(li); }); }
+    liste($("pieces_vous"), vous);
+    liste($("pieces_garant"), garant);
+    $("bloc_pieces_garant").hidden = !$("garant").checked;
+    return { vous: vous, garant: $("garant").checked ? garant : [] };
+  }
+  function affichage() {
+    $("l_situation_autre").hidden = v("situation") !== "autre";
+    var b = v("bourse");
+    $("l_bourse_nom").hidden = !(b === "oui" || b === "demande en cours");
+    $("fiche_garant").hidden = !$("garant").checked;
+    tuiles(); pieces();
+  }
+
+  function controle() {
+    var fautes = [];
+    document.querySelectorAll(".champ[data-req]").forEach(function (c) {
+      if (c.hidden || (c.closest("[hidden]"))) { c.classList.remove("erreur"); return; }
+      var ok = true;
+      c.querySelectorAll("input,select").forEach(function (e) {
+        var val = (e.value || "").trim();
+        if (!val) ok = false;
+        else if (e.type === "email" && !mailValide(val)) ok = false;
+        else if (e.type === "tel" && !telValide(val)) ok = false;
+        else if (e.type === "date" && !dateValide(val)) ok = false;
+      });
+      c.classList.toggle("erreur", !ok);
+      if (!ok) fautes.push(c);
+    });
+    var appt = document.querySelector("input[name=appt]:checked");
+    $("g_appt").classList.toggle("erreur", !appt);
+    if (!appt) fautes.push($("g_appt"));
+    return fautes;
+  }
+
+  function fiche() {
+    var appt = document.querySelector("input[name=appt]:checked");
+    var sit = v("situation") === "autre" ? "autre (" + v("situation_autre") + ")" : v("situation");
+    var b = v("bourse");
+    if (b === "oui" || b === "demande en cours") b += " (" + v("bourse_nom") + ")";
+    var L = ["DOSSIER DE CANDIDATURE LE WUPP", "",
+      "VOS INFORMATIONS",
+      "NOM : " + v("nom").toUpperCase(),
+      "Prénom(s) : " + v("prenom"),
+      "Date de naissance : " + dateFr(v("naissance")),
+      "Ville de naissance : " + v("ville_n"),
+      "Pays de naissance : " + v("pays_n"),
+      "Titre de séjour en cours de validité : " + ouiNon("sejour"),
+      "Adresse actuelle : " + v("adresse") + ", " + v("cp") + " " + v("ville"),
+      "Adresse mail : " + v("mail"),
+      "Téléphone portable : " + v("tel").replace(/[\s.\-()]/g, ""),
+      "Situation : " + sit,
+      "Bourse de l'enseignement supérieur 2026-2027 : " + b, "",
+      "VOTRE LOGEMENT",
+      "Appartement souhaité : " + (appt ? appt.value : ""),
+      "Option parking privé, 25 € par mois : " + ouiNon("parking"),
+      "Option laverie, 15 € par mois : " + ouiNon("laverie"), "",
+      "VOTRE GARANTIE",
+      "Garantie Visale : " + ouiNon("visale"),
+      "Garant : " + ouiNon("garant")];
+    if ($("garant").checked) {
+      L.push("NOM du garant : " + v("g_nom").toUpperCase(),
+        "Prénom(s) du garant : " + v("g_prenom"),
+        "Date de naissance du garant : " + dateFr(v("g_naissance")),
+        "Ville de naissance du garant : " + v("g_ville_n"),
+        "Pays de naissance du garant : " + v("g_pays_n"),
+        "Titre de séjour en cours de validité du garant : " + ouiNon("g_sejour"),
+        "Adresse postale du garant : " + v("g_adresse") + ", " + v("g_cp") + " " + v("g_ville"),
+        "Adresse mail du garant : " + v("g_mail"),
+        "Téléphone portable du garant : " + v("g_tel").replace(/[\s.\-()]/g, ""),
+        "Profession et lien avec le candidat : " + v("g_lien"));
+    }
+    var p = pieces();
+    L.push("", "MES PIÈCES SONT JOINTES À CE MAIL (" + (p.vous.length + p.garant.length) + " pièces attendues)");
+    return L.join("\n");
+  }
+
+  $("dossier").addEventListener("input", affichage);
+  $("dossier").addEventListener("change", affichage);
+  $("dossier").addEventListener("submit", function (ev) {
+    ev.preventDefault();
+    var fautes = controle();
+    var al = $("alerte");
+    if (fautes.length) {
+      al.hidden = false;
+      al.textContent = fautes.length === 1 ? "Il manque 1 réponse, signalée en rouge." : "Il manque " + fautes.length + " réponses, signalées en rouge.";
+      $("apres").hidden = true;
+      fautes[0].scrollIntoView({ behavior: "smooth", block: "center" });
+      var premier = fautes[0].querySelector("input,select"); if (premier) premier.focus({ preventScroll: true });
+      return;
+    }
+    al.hidden = true;
+    var texte = fiche();
+    var sujet = "Dossier de candidature, " + v("nom").toUpperCase() + " " + v("prenom");
+    var q = "subject=" + encodeURIComponent(sujet) + "&body=" + encodeURIComponent(texte);
+    $("fiche").value = texte;
+    $("b_gmail").href = "https://mail.google.com/mail/?view=cm&fs=1&to=" + encodeURIComponent(DEST) + "&su=" + encodeURIComponent(sujet) + "&body=" + encodeURIComponent(texte);
+    $("b_outlook").href = "https://outlook.live.com/mail/0/deeplink/compose?to=" + encodeURIComponent(DEST) + "&subject=" + encodeURIComponent(sujet) + "&body=" + encodeURIComponent(texte);
+    $("apres").hidden = false;
+    window.location.href = "mailto:" + DEST + "?" + q;
+  });
+  $("b_copier").addEventListener("click", function () {
+    var t = $("fiche"), b = $("b_copier");
+    function fait() { b.textContent = "Fiche copiée"; setTimeout(function () { b.textContent = "Copier ma fiche"; }, 2500); }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(t.value).then(fait, function () { t.select(); document.execCommand("copy"); fait(); });
+    } else { t.select(); document.execCommand("copy"); fait(); }
+  });
+  document.querySelectorAll(".champ[data-req] input, .champ[data-req] select").forEach(function (e) {
+    e.addEventListener("blur", function () { if (document.querySelector(".erreur")) controle(); });
+  });
+  affichage();
+})();
+</script>
+</body>
+</html>
