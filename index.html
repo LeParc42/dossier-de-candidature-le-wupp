@@ -83,6 +83,10 @@ input:focus,select:focus,button:focus-visible,.tuile:focus-within{outline:2px so
 .centre{text-align:center;font-weight:bold}
 .alerte{color:var(--rouge);font-weight:bold;text-align:center;margin-top:12px}
 textarea{width:100%;min-height:220px;border:1px solid var(--champ);border-radius:8px;padding:10px;font:13px/1.5 Consolas,Menlo,monospace;color:var(--encre);background:#FFFFFF;margin-top:12px;text-align:left}
+.pot{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
+.ok{color:var(--teal)}
+.fin{font-weight:normal;font-size:13px}
+.bouton[disabled]{opacity:.6;cursor:default}
 .pied{font-size:12px;color:var(--gris);text-align:center;padding:6px 10px 0}
 .pied p{text-align:center;margin-bottom:6px}
 @media (max-width:560px){
@@ -105,7 +109,7 @@ textarea{width:100%;min-height:220px;border:1px solid var(--champ);border-radius
   </div>
   <hr>
   <p>Merci de l'intérêt que vous portez à l'immeuble Le Wupp. Nous serons heureux d'étudier votre candidature.</p>
-  <p>Remplissez les fiches ci-dessous. En bas de la page, votre mail se prépare tout seul, vous n'avez plus qu'à y joindre vos pièces et à l'envoyer.</p>
+  <p>Remplissez les fiches ci-dessous. En bas de la page, un bouton nous transmet directement votre fiche. Il vous restera à nous adresser vos pièces par mail, en un seul envoi.</p>
   <div class="note" style="margin-top:18px">
     <div class="ligne"><span class="pic" aria-hidden="true">⏱️</span><span><strong>Réponse sous 24 heures</strong>, hors week-end et jours fériés, dès lors que le dossier est complet.</span></div>
     <p>Un dossier auquel il manque des informations ou des pièces ne peut pas être étudié. Nous serions alors amenés à revenir vers vous, ce qui retarderait d'autant votre candidature.</p>
@@ -121,6 +125,7 @@ textarea{width:100%;min-height:220px;border:1px solid var(--champ);border-radius
 </section>
 
 <form id="dossier" novalidate>
+<div class="pot" aria-hidden="true"><label>Site web <input type="text" id="site_web" tabindex="-1" autocomplete="off"></label></div>
 
 <section class="carte bleu">
   <h2><span class="pic" aria-hidden="true">📝</span>Vos informations</h2>
@@ -145,8 +150,8 @@ textarea{width:100%;min-height:220px;border:1px solid var(--champ);border-radius
   <p>Cochez l'appartement souhaité, puis chaque option que vous retenez.</p>
   <div class="groupe" id="g_appt" style="margin-top:16px">
     <div class="tuiles">
-      <label class="tuile"><input type="radio" name="appt" value="L'Essentiel 425 €"><span class="case" aria-hidden="true">✓</span><div class="nom">L'Essentiel</div><div class="prix">425 €</div><div class="par">par mois</div></label>
-      <label class="tuile"><input type="radio" name="appt" value="Le Supérieur 495 €"><span class="case" aria-hidden="true">✓</span><div class="nom">Le Supérieur</div><div class="prix">495 €</div><div class="par">par mois</div></label>
+      <label class="tuile"><input type="radio" name="appt" value="essentiel"><span class="case" aria-hidden="true">✓</span><div class="nom">L'Essentiel</div><div class="prix">425 €</div><div class="par">par mois</div></label>
+      <label class="tuile"><input type="radio" name="appt" value="superieur"><span class="case" aria-hidden="true">✓</span><div class="nom">Le Supérieur</div><div class="prix">495 €</div><div class="par">par mois</div></label>
     </div>
     <div class="msg">Choisissez un appartement</div>
   </div>
@@ -158,7 +163,7 @@ textarea{width:100%;min-height:220px;border:1px solid var(--champ);border-radius
 
 <section class="carte jaune">
   <h2><span class="pic" aria-hidden="true">🤝</span>Votre garantie</h2>
-  <label class="tuile"><input type="checkbox" id="visale"><span class="case" aria-hidden="true">✓</span><div class="titre">Garantie Visale</div><div class="txt">Cochez la case si vous en bénéficiez, et joignez votre visa certifié, sans autre pièce à fournir pour cette partie.</div></label>
+  <label class="tuile"><input type="checkbox" id="visale"><span class="case" aria-hidden="true">✓</span><div class="titre">Garantie Visale</div><div class="txt">Cochez la case si vous en bénéficiez. Votre visa certifié suffit, sans autre pièce à fournir pour cette partie.</div></label>
   <label class="tuile" style="margin-top:12px"><input type="checkbox" id="garant"><span class="case" aria-hidden="true">✓</span><div class="titre">Vous avez un garant</div><div class="txt">Cochez la case, puis complétez sa fiche.</div></label>
   <div id="fiche_garant" hidden style="margin-top:16px">
     <div class="champ" data-req><label for="g_nom">NOM<small>(en majuscules)</small></label><input type="text" id="g_nom" style="text-transform:uppercase"><span class="msg">À compléter</span></div>
@@ -177,7 +182,7 @@ textarea{width:100%;min-height:220px;border:1px solid var(--champ);border-radius
 
 <section class="carte">
   <h2><span class="pic" aria-hidden="true">📎</span>Les pièces à joindre</h2>
-  <p>La liste s'adapte à vos réponses. Préparez ces pièces, vous les joindrez à votre mail.</p>
+  <p>La liste s'adapte à vos réponses. Préparez ces pièces, vous nous les adresserez par mail une fois le formulaire envoyé.</p>
   <div class="sous">Pour vous</div>
   <ul class="puces" id="pieces_vous"></ul>
   <div id="bloc_pieces_garant" hidden>
@@ -192,20 +197,34 @@ textarea{width:100%;min-height:220px;border:1px solid var(--champ);border-radius
 </section>
 
 <section class="carte bleu rouge" id="envoi">
-  <h2><span class="pic" aria-hidden="true">📬</span>Envoyez le tout en un seul mail</h2>
-  <p class="centre">Appuyez sur le bouton. Votre mail s'ouvre, déjà rempli avec votre fiche. Joignez-y toutes vos pièces, puis envoyez-le.</p>
-  <div class="rangee"><button type="submit" class="bouton" id="b_preparer">Préparer mon mail</button></div>
-  <div class="alerte" id="alerte" role="alert" hidden></div>
-  <div id="apres" hidden>
-    <hr>
-    <p class="centre">Votre messagerie ne s'est pas ouverte ?</p>
-    <div class="rangee">
-      <a class="bouton clair" id="b_gmail" target="_blank" rel="noopener">Ouvrir dans Gmail</a>
-      <a class="bouton clair" id="b_outlook" target="_blank" rel="noopener">Ouvrir dans Outlook</a>
-      <button type="button" class="bouton clair" id="b_copier">Copier ma fiche</button>
+  <div id="etape_envoi">
+    <h2><span class="pic" aria-hidden="true">📨</span>Envoyez le formulaire</h2>
+    <p class="centre">Appuyez sur le bouton. Votre fiche est transmise directement au secrétariat.</p>
+    <div class="rangee"><button type="submit" class="bouton" id="b_envoyer">Envoyer le formulaire</button></div>
+    <div class="alerte" id="alerte" role="alert" hidden></div>
+    <div id="secours" hidden>
+      <hr>
+      <p class="centre">Vous pouvez aussi nous envoyer votre fiche par mail.</p>
+      <div class="rangee">
+        <a class="bouton clair" id="b_mail">Ouvrir ma messagerie</a>
+        <a class="bouton clair" id="b_gmail" target="_blank" rel="noopener">Ouvrir dans Gmail</a>
+        <a class="bouton clair" id="b_outlook" target="_blank" rel="noopener">Ouvrir dans Outlook</a>
+        <button type="button" class="bouton clair" id="b_copier">Copier ma fiche</button>
+      </div>
+      <p class="centre fin" style="margin-top:12px">Le mail s'ouvre déjà rempli avec votre fiche, à l'adresse secretariat@wupp.fr. Joignez-y vos pièces avant de l'envoyer.</p>
+      <textarea id="fiche" readonly aria-label="Votre fiche"></textarea>
     </div>
-    <p class="centre" style="margin-top:12px">Vous pouvez aussi copier votre fiche et la coller dans un mail adressé à secretariat@wupp.fr, avec vos pièces.</p>
-    <textarea id="fiche" readonly aria-label="Votre fiche"></textarea>
+  </div>
+  <div id="etape_pieces" hidden>
+    <h2><span class="pic" aria-hidden="true">📬</span>Envoyez le tout en un seul mail</h2>
+    <p class="centre ok" id="confirmation" role="status">✅ Votre fiche est bien transmise au secrétariat.</p>
+    <p class="centre">Il vous reste à nous adresser vos pièces, toutes ensemble, dans un seul mail à secretariat@wupp.fr. À réception, nous procédons à l'étude de votre dossier.</p>
+    <div class="rangee"><a class="bouton" id="p_mail">Préparer le mail de mes pièces</a></div>
+    <div class="rangee">
+      <a class="bouton clair" id="p_gmail" target="_blank" rel="noopener">Ouvrir dans Gmail</a>
+      <a class="bouton clair" id="p_outlook" target="_blank" rel="noopener">Ouvrir dans Outlook</a>
+    </div>
+    <p class="centre fin" style="margin-top:12px">Si votre messagerie ne s'ouvre pas, écrivez directement à secretariat@wupp.fr en indiquant votre nom et votre prénom dans l'objet du mail.</p>
   </div>
 </section>
 
@@ -219,7 +238,7 @@ textarea{width:100%;min-height:220px;border:1px solid var(--champ);border-radius
 </section>
 
 <div class="pied">
-  <p>Vos réponses ne sont enregistrées nulle part. Elles sont seulement placées dans le mail que vous envoyez vous-même, et servent uniquement à l'étude de votre candidature.</p>
+  <p>Vos réponses sont transmises au secrétariat du Wupp par une connexion sécurisée. Elles servent uniquement à l'étude de votre candidature.</p>
   <p>Le Wupp (SARL LE PARC), 4 rue de Wuppertal, 42100 Saint-Étienne, secretariat@wupp.fr</p>
 </div>
 
@@ -227,6 +246,7 @@ textarea{width:100%;min-height:220px;border:1px solid var(--champ);border-radius
 <script>
 (function () {
   var DEST = "secretariat@wupp.fr";
+  var SERVICE = "https://wupp-mcp.wupp.workers.dev/candidature";
   var $ = function (id) { return document.getElementById(id); };
   var v = function (id) { return ($(id).value || "").trim(); };
   var ouiNon = function (id) { return $(id).checked ? "oui" : "non"; };
@@ -284,6 +304,24 @@ textarea{width:100%;min-height:220px;border:1px solid var(--champ);border-radius
     return fautes;
   }
 
+  var TEXTES = ["nom", "prenom", "naissance", "ville_n", "pays_n", "adresse", "cp", "ville", "mail", "tel", "situation", "situation_autre", "bourse", "bourse_nom"];
+  var TEXTES_GARANT = ["g_nom", "g_prenom", "g_naissance", "g_ville_n", "g_pays_n", "g_adresse", "g_cp", "g_ville", "g_mail", "g_tel", "g_lien"];
+  var CASES = ["sejour", "parking", "laverie", "visale", "garant"];
+  var GAMMES = { essentiel: "L'Essentiel", superieur: "Le Supérieur" };
+  function nomPrenom() { return v("nom").toUpperCase() + " " + v("prenom"); }
+  function numero(id) { return v(id).replace(/[\s.\-()]/g, ""); }
+
+  // Ce que le bouton transmet au secrétariat
+  function donnees() {
+    var appt = document.querySelector("input[name=appt]:checked");
+    var d = { site_web: v("site_web"), appt: appt ? appt.value : "" };
+    TEXTES.forEach(function (k) { d[k] = v(k); });
+    CASES.forEach(function (k) { d[k] = $(k).checked; });
+    if (d.garant) { TEXTES_GARANT.forEach(function (k) { d[k] = v(k); }); d.g_sejour = $("g_sejour").checked; }
+    return d;
+  }
+
+  // La même fiche en texte, pour l'envoi par mail quand le bouton n'a pas abouti
   function fiche() {
     var appt = document.querySelector("input[name=appt]:checked");
     var sit = v("situation") === "autre" ? "autre (" + v("situation_autre") + ")" : v("situation");
@@ -294,61 +332,91 @@ textarea{width:100%;min-height:220px;border:1px solid var(--champ);border-radius
       "NOM : " + v("nom").toUpperCase(),
       "Prénom(s) : " + v("prenom"),
       "Date de naissance : " + dateFr(v("naissance")),
-      "Ville de naissance : " + v("ville_n"),
-      "Pays de naissance : " + v("pays_n"),
+      "Lieu de naissance : " + v("ville_n") + ", " + v("pays_n"),
       "Titre de séjour en cours de validité : " + ouiNon("sejour"),
       "Adresse actuelle : " + v("adresse") + ", " + v("cp") + " " + v("ville"),
       "Adresse mail : " + v("mail"),
-      "Téléphone portable : " + v("tel").replace(/[\s.\-()]/g, ""),
-      "Situation : " + sit,
+      "Téléphone portable : " + numero("tel"),
+      "Votre situation : " + sit,
       "Bourse de l'enseignement supérieur 2026-2027 : " + b, "",
       "VOTRE LOGEMENT",
-      "Appartement souhaité : " + (appt ? appt.value : ""),
+      "Appartement souhaité : " + (appt ? GAMMES[appt.value] : ""),
       "Option parking privé, 25 € par mois : " + ouiNon("parking"),
       "Option laverie, 15 € par mois : " + ouiNon("laverie"), "",
-      "VOTRE GARANTIE",
-      "Garantie Visale : " + ouiNon("visale"),
-      "Garant : " + ouiNon("garant")];
+      "VOTRE GARANTIE"];
+    if ($("visale").checked) L.push("Garantie Visale : oui");
     if ($("garant").checked) {
-      L.push("NOM du garant : " + v("g_nom").toUpperCase(),
-        "Prénom(s) du garant : " + v("g_prenom"),
-        "Date de naissance du garant : " + dateFr(v("g_naissance")),
-        "Ville de naissance du garant : " + v("g_ville_n"),
-        "Pays de naissance du garant : " + v("g_pays_n"),
-        "Titre de séjour en cours de validité du garant : " + ouiNon("g_sejour"),
-        "Adresse postale du garant : " + v("g_adresse") + ", " + v("g_cp") + " " + v("g_ville"),
-        "Adresse mail du garant : " + v("g_mail"),
-        "Téléphone portable du garant : " + v("g_tel").replace(/[\s.\-()]/g, ""),
-        "Profession et lien avec le candidat : " + v("g_lien"));
+      L.push("Garant physique : oui", "", "VOTRE GARANT",
+        "NOM : " + v("g_nom").toUpperCase(),
+        "Prénom(s) : " + v("g_prenom"),
+        "Date de naissance : " + dateFr(v("g_naissance")),
+        "Lieu de naissance : " + v("g_ville_n") + ", " + v("g_pays_n"),
+        "Titre de séjour en cours de validité : " + ouiNon("g_sejour"),
+        "Adresse postale : " + v("g_adresse") + ", " + v("g_cp") + " " + v("g_ville"),
+        "Adresse mail : " + v("g_mail"),
+        "Téléphone portable : " + numero("g_tel"),
+        "Profession et lien avec vous : " + v("g_lien"));
     }
-    var p = pieces();
-    L.push("", "MES PIÈCES SONT JOINTES À CE MAIL (" + (p.vous.length + p.garant.length) + " pièces attendues)");
+    if (!$("visale").checked && !$("garant").checked) L.push("Garantie : aucune indiquée");
+    L.push("", "Mes pièces sont jointes à ce mail.");
     return L.join("\n");
   }
 
+  function liens(prefixe, sujet, texte) {
+    var s = encodeURIComponent(sujet), c = encodeURIComponent(texte), d = encodeURIComponent(DEST);
+    $(prefixe + "_mail").href = "mailto:" + DEST + "?subject=" + s + "&body=" + c;
+    $(prefixe + "_gmail").href = "https://mail.google.com/mail/?view=cm&fs=1&to=" + d + "&su=" + s + "&body=" + c;
+    $(prefixe + "_outlook").href = "https://outlook.live.com/mail/0/deeplink/compose?to=" + d + "&subject=" + s + "&body=" + c;
+  }
+  function secours(message) {
+    var al = $("alerte");
+    al.hidden = false; al.textContent = message;
+    var texte = fiche();
+    $("fiche").value = texte;
+    liens("b", "Dossier de candidature, " + nomPrenom(), texte);
+    $("secours").hidden = false;
+    $("b_envoyer").disabled = false; $("b_envoyer").textContent = "Envoyer le formulaire";
+  }
+  function transmis() {
+    var L = ["Bonjour,", "", "Vous trouverez en pièces jointes les pièces de mon dossier de candidature.", "", nomPrenom()];
+    liens("p", "Pièces du dossier de candidature, " + nomPrenom(), L.join("\n"));
+    document.querySelectorAll("#dossier input, #dossier select").forEach(function (e) { e.disabled = true; });
+    $("etape_envoi").hidden = true;
+    $("etape_pieces").hidden = false;
+    $("envoi").scrollIntoView({ behavior: "smooth", block: "center" });
+  }
+
+  var enCours = false;
   $("dossier").addEventListener("input", affichage);
   $("dossier").addEventListener("change", affichage);
   $("dossier").addEventListener("submit", function (ev) {
     ev.preventDefault();
+    if (enCours) return;
     var fautes = controle();
     var al = $("alerte");
     if (fautes.length) {
       al.hidden = false;
       al.textContent = fautes.length === 1 ? "Il manque 1 réponse, signalée en rouge." : "Il manque " + fautes.length + " réponses, signalées en rouge.";
-      $("apres").hidden = true;
+      $("secours").hidden = true;
       fautes[0].scrollIntoView({ behavior: "smooth", block: "center" });
       var premier = fautes[0].querySelector("input,select"); if (premier) premier.focus({ preventScroll: true });
       return;
     }
-    al.hidden = true;
-    var texte = fiche();
-    var sujet = "Dossier de candidature, " + v("nom").toUpperCase() + " " + v("prenom");
-    var q = "subject=" + encodeURIComponent(sujet) + "&body=" + encodeURIComponent(texte);
-    $("fiche").value = texte;
-    $("b_gmail").href = "https://mail.google.com/mail/?view=cm&fs=1&to=" + encodeURIComponent(DEST) + "&su=" + encodeURIComponent(sujet) + "&body=" + encodeURIComponent(texte);
-    $("b_outlook").href = "https://outlook.live.com/mail/0/deeplink/compose?to=" + encodeURIComponent(DEST) + "&subject=" + encodeURIComponent(sujet) + "&body=" + encodeURIComponent(texte);
-    $("apres").hidden = false;
-    window.location.href = "mailto:" + DEST + "?" + q;
+    al.hidden = true; $("secours").hidden = true;
+    enCours = true;
+    $("b_envoyer").disabled = true; $("b_envoyer").textContent = "Envoi en cours…";
+    var arret = window.AbortController ? new AbortController() : null;
+    var minuteur = setTimeout(function () { if (arret) arret.abort(); }, 25000);
+    fetch(SERVICE, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(donnees()), signal: arret ? arret.signal : undefined })
+      .then(function (r) { return r.json().then(function (j) { return { statut: r.status, j: j }; }, function () { return { statut: r.status, j: {} }; }); })
+      .then(function (r) {
+        clearTimeout(minuteur); enCours = false;
+        if (r.j && r.j.ok) { transmis(); return; }
+        if (r.statut === 400 && r.j.erreur) { secours("Votre fiche n'a pas pu être transmise (" + r.j.erreur + "). Corrigez ce point et renvoyez le formulaire, ou envoyez votre fiche par mail."); return; }
+        if (r.statut === 429 && r.j.erreur) { secours("Votre fiche n'a pas pu être transmise. Vous pouvez l'envoyer par mail."); return; }
+        secours("L'envoi n'a pas abouti. Réessayez dans un instant, ou envoyez votre fiche par mail.");
+      })
+      .catch(function () { clearTimeout(minuteur); enCours = false; secours("L'envoi n'a pas abouti. Réessayez dans un instant, ou envoyez votre fiche par mail."); });
   });
   $("b_copier").addEventListener("click", function () {
     var t = $("fiche"), b = $("b_copier");
