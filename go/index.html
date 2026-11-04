@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Le Wupp · Studios meublés à Saint-Étienne</title>
+<meta name="description" content="Studios meublés à louer à Saint-Étienne, au cœur du Parc de l'Europe. Chauffage, eau et WiFi déjà compris dans le loyer. Dossier de candidature en ligne.">
+<meta property="og:title" content="Le Wupp · Studios meublés à Saint-Étienne">
+<meta property="og:description" content="Chauffage, eau et WiFi déjà compris dans le loyer. Dossier de candidature en ligne.">
+<meta property="og:image" content="https://candidature.wupp.fr/logo.png">
+<link rel="icon" href="../logo.png">
+<style>
+  :root { --teal:#0F3039; --vert:#DAEDE7; --blanc:#ffffff; --gris:#5b6f74; }
+  * { box-sizing:border-box; }
+  body { margin:0; min-height:100vh; background:var(--vert); color:var(--teal);
+         font-family:"Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif;
+         display:flex; justify-content:center; }
+  main { width:100%; max-width:460px; padding:40px 20px 32px; text-align:center; }
+  .logo { width:120px; height:120px; border-radius:50%; background:var(--blanc);
+          box-shadow:0 6px 24px rgba(15,48,57,.12); object-fit:contain; padding:8px; }
+  h1 { font-size:24px; margin:18px 0 6px; letter-spacing:.2px; }
+  .sous { margin:0 0 6px; font-size:16px; line-height:1.45; }
+  .petit { margin:0 0 26px; font-size:14px; color:var(--gris); }
+  a.btn { display:flex; align-items:center; gap:14px; text-decoration:none;
+          background:var(--blanc); color:var(--teal); border-radius:18px;
+          padding:16px 18px; margin:0 0 14px; font-size:17px; font-weight:600;
+          box-shadow:0 4px 16px rgba(15,48,57,.10); transition:transform .12s ease; text-align:left; }
+  a.btn:active { transform:scale(.98); }
+  a.btn.principal { background:var(--teal); color:var(--blanc); }
+  .ico { flex:0 0 40px; height:40px; border-radius:12px; display:flex; align-items:center;
+         justify-content:center; font-size:21px; background:var(--vert); }
+  a.principal .ico { background:rgba(255,255,255,.14); }
+  .txt small { display:block; font-weight:400; font-size:13px; opacity:.8; margin-top:2px; }
+  footer { margin-top:26px; font-size:13px; color:var(--gris); line-height:1.5; }
+</style>
+</head>
+<body>
+<main>
+  <img class="logo" src="../logo.png" alt="Logo du Wupp">
+  <h1>Le Wupp</h1>
+  <p class="sous">Studios meublés à louer à Saint-Étienne, au cœur du Parc de l'Europe</p>
+  <p class="petit">Chauffage, eau et WiFi déjà compris dans le loyer</p>
+
+  <a class="btn principal" id="b-dossier" href="https://candidature.wupp.fr/">
+    <span class="ico">📝</span>
+    <span class="txt">Recevoir mon dossier de candidature<small>En ligne, en quelques minutes</small></span>
+  </a>
+  <a class="btn" id="b-site" href="https://www.wupp.fr/">
+    <span class="ico">🏡</span>
+    <span class="txt">Voir les appartements et les prix<small>L'Essentiel et Le Supérieur</small></span>
+  </a>
+  <a class="btn" id="b-wa" href="https://wa.me/33767341085">
+    <span class="ico">💬</span>
+    <span class="txt">Écrire au Wupp sur WhatsApp<small>Réponse rapide, par écrit</small></span>
+  </a>
+
+  <footer>4 rue de Wuppertal, 42100 Saint-Étienne<br>secretariat@wupp.fr<br>Vivez bien, vivez malin</footer>
+</main>
+<script>
+  (function () {
+    var p = new URLSearchParams(location.search);
+    var s = (p.get('s') || 'direct').toLowerCase();
+    var noms = { ig: 'instagram', tt: 'tiktok', fb: 'facebook', mc: 'manychat' };
+    var source = noms[s] || s;
+    var reseau = { instagram: 'Instagram', tiktok: 'TikTok', facebook: 'Facebook' }[source];
+    function utm(url, contenu) {
+      var u = new URL(url);
+      u.searchParams.set('utm_source', source);
+      u.searchParams.set('utm_medium', 'bio');
+      u.searchParams.set('utm_campaign', 'lancement');
+      u.searchParams.set('utm_content', contenu);
+      return u.toString();
+    }
+    document.getElementById('b-dossier').href = utm('https://candidature.wupp.fr/', 'dossier');
+    document.getElementById('b-site').href = utm('https://www.wupp.fr/', 'site');
+    var msg = 'Bonjour, ' + (reseau ? 'je vous ai trouvé sur ' + reseau + ' et ' : '') + 'je cherche un appartement au Wupp.';
+    document.getElementById('b-wa').href = 'https://wa.me/33767341085?text=' + encodeURIComponent(msg);
+  })();
+</script>
+</body>
+</html>
