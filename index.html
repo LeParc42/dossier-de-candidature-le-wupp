@@ -95,6 +95,14 @@ textarea{width:100%;min-height:220px;border:1px solid var(--champ);border-radius
   .msg{grid-column:1}
   .tete h1{font-size:22px;line-height:28px}
 }
+.voile{position:fixed;inset:0;background:rgba(15,48,57,.55);display:flex;align-items:center;justify-content:center;padding:20px;z-index:50}
+.voile[hidden]{display:none}
+.pop{background:#FFFFFF;border-radius:20px;max-width:420px;width:100%;padding:28px 24px 22px;display:flex;flex-direction:column;align-items:center;gap:14px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.25)}
+.pop .rond{width:64px;height:64px;border-radius:50%;background:var(--fond);display:flex;align-items:center;justify-content:center;font-size:30px}
+.pop h3{margin:0;font-size:20px;line-height:26px;color:var(--teal)}
+.pop p{margin:0;text-align:center;color:var(--gris)}
+.pop .bouton{width:100%;text-align:center}
+.pop .fermer{background:none;border:0;font:14px Arial,Helvetica,sans-serif;color:var(--gris);text-decoration:underline;cursor:pointer}
 </style>
 </head>
 <body>
@@ -383,6 +391,12 @@ textarea{width:100%;min-height:220px;border:1px solid var(--champ);border-radius
     document.querySelectorAll("#dossier input, #dossier select").forEach(function (e) { e.disabled = true; });
     $("etape_envoi").hidden = true;
     $("etape_pieces").hidden = false;
+    var fv = $("felicitations"); $("felic_mail").href = $("p_mail").href; fv.hidden = false;
+    var fermer = function () { fv.hidden = true; };
+    $("felic_mail").onclick = fermer; $("felic_fermer").onclick = fermer;
+    fv.onclick = function (e) { if (e.target === fv) fermer(); };
+    document.addEventListener("keydown", function (e) { if (e.key === "Escape") fermer(); });
+    $("felic_mail").focus();
     $("envoi").scrollIntoView({ behavior: "smooth", block: "center" });
   }
 
@@ -431,5 +445,14 @@ textarea{width:100%;min-height:220px;border:1px solid var(--champ);border-radius
   affichage();
 })();
 </script>
+<div class="voile" id="felicitations" hidden>
+  <div class="pop" role="dialog" aria-modal="true" aria-labelledby="felic_t">
+    <div class="rond" aria-hidden="true">🎉</div>
+    <h3 id="felic_t">Félicitations, votre dossier est bien transmis au secrétariat.</h3>
+    <p>Vous pouvez maintenant cliquer sur « Préparer le mail de mes pièces » pour nous envoyer vos pièces par mail.</p>
+    <a class="bouton" id="felic_mail">Préparer le mail de mes pièces</a>
+    <button type="button" class="fermer" id="felic_fermer">Fermer</button>
+  </div>
+</div>
 </body>
 </html>
